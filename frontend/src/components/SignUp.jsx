@@ -19,10 +19,10 @@ const SignUp = () => {
             "content-type":"application/json"
          }
      })
+     result = await result.json();
      if(result.success){
-        result = await result.json();
         document.cookie = "token="+result.token;
-        localStorage.getItem("login",userData.email);
+        localStorage.setItem("login",userData.email);
         navigate("/");
      }
   }
