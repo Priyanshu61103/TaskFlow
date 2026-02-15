@@ -1,0 +1,89 @@
+*{
+   padding:0;
+   margin:0; 
+}
+
+body{
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.to-do-heading{
+  font-weight:800;
+  font-size: 60px;
+  text-decoration: underline;
+}
+
+.task-lists {
+  display: grid;
+  gap: 10px;
+  list-style-type: none;
+  grid-template-columns: 100px 100px 350px 550px 180px;
+}
+
+input[type = "checkbox"]{
+    width:15px;
+    height:15px;
+}
+.list-header {
+  height:40px;
+  padding: 10px;
+  border: 2px solid #ddd;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:10px;
+  font-weight: bold;
+}
+
+.list-item {
+  height:40px;
+  padding: 10px;
+  border: 2px solid #ddd;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:10px;
+}
+
+.delete-button{
+    height:40px;
+    width:70px;
+    padding:10px;
+    font-size: small;
+    background-color:rgb(245, 55, 55);
+    color:white;
+    border:none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-button:hover{
+    background-color: rgb(185, 12, 12);
+} 
+
+.update-button{
+    height:40px;
+    width:70px;
+    font-size: small;
+    padding:10px;
+    margin-left: 5px;
+    background-color:green;
+    color:white;
+    border:none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.update-button:hover{
+    background-color: rgb(77, 252, 77);
+} 
+
+.delete-multiple{
+    padding: 0px 40px;
+    margin-left:10px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
