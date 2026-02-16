@@ -19,6 +19,7 @@ const UpdateTask = () => {
 
   const handleUpdateTask = async () => {
      let task = await fetch("http://localhost:3200/update-task",{
+        credentials : "include",
         method : "put",
         body : JSON.stringify(updateData),
         headers : {

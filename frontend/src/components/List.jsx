@@ -19,6 +19,7 @@ const List = () => {
 
   const deleteTask = async (id) => {
     let result = await fetch("http://localhost:3200/delete/" + id, {
+      credentials : "include",
       method: "delete",
     });
 
@@ -48,6 +49,7 @@ const List = () => {
 
   const deleteTasks = async () => {
     let data = await fetch("http://localhost:3200/delete-multiple", {
+      credentials : "include",
       method: "delete",
       body: JSON.stringify(selectedTask),
       headers: {

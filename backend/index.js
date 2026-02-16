@@ -39,6 +39,7 @@ app.post("/login", async (req, resp) => {
       email: userData.email,
       password: userData.password,
     });
+    console.log("result:",result);
     if (result) {
       jwt.sign(userData, "Google", { expiresIn: "5d" }, (error, token) => {
         resp.send({ success: true, message: "login done", token });
@@ -50,7 +51,7 @@ app.post("/login", async (req, resp) => {
        resp.send({ success: false, message: "login not done" });
   }
 });
-app.post("/add-task", async (req, resp) => {
+app.post("/add-task" , verifyJsonWebToken , async (req, resp) => {
   console.log(req.body);
   const db = await connection();
   const collection = db.collection(collectionName);
@@ -70,18 +71,7 @@ app.get("/tasks", verifyJsonWebToken , async (req, resp) => {
   }
 });
 
-function verifyJsonWebToken(req,resp,next){
-    const token = req.cookies.token;
-    jwt.verify(token,"Google",{expiresIn:"5d"},(error,decoded)=>{
-       if(error){
-          return resp.send({message:"invalid token",success:false});
-       }
-       console.log(decoded);
-       next();
-    })
-}
-
-app.delete("/delete/:id", async (req, resp) => {
+app.delete("/delete/:id", verifyJsonWebToken , async (req, resp) => {
   const db = await connection();
   const id = req.params.id;
   const collection = db.collection(collectionName);
@@ -93,7 +83,7 @@ app.delete("/delete/:id", async (req, resp) => {
   }
 });
 
-app.get("/tasks", async (req, resp) => {
+app.get("/tasks",  verifyJsonWebToken , async (req, resp) => {
   const db = await connection();
   const collection = db.collection(collectionName);
   const result = await collection.find().toArray();
@@ -104,7 +94,7 @@ app.get("/tasks", async (req, resp) => {
   }
 });
 
-app.get("/update/:id", async (req, resp) => {
+app.get("/update/:id", verifyJsonWebToken , async (req, resp) => {
   const db = await connection();
   const id = req.params.id;
   const collection = db.collection(collectionName);
@@ -120,7 +110,7 @@ app.get("/update/:id", async (req, resp) => {
   }
 });
 
-app.put("/update-task", async (req, resp) => {
+app.put("/update-task",  verifyJsonWebToken , async (req, resp) => {
   const db = await connection();
   const _id = fields._id;
   const update = { ...req.body, _id };
@@ -139,7 +129,7 @@ app.put("/update-task", async (req, resp) => {
   }
 });
 
-app.delete("/delete-multiple", async (req, resp) => {
+app.delete("/delete-multiple", verifyJsonWebToken , async (req, resp) => {
   const db = await connection();
   const ids = req.body;
   const deleteTasksIds = ids.map((item) => (item = new ObjectId(item)));
@@ -151,5 +141,16 @@ app.delete("/delete-multiple", async (req, resp) => {
     resp.send({ message: "Data Not Deleted", success: false });
   }
 });
+
+function verifyJsonWebToken(req,resp,next){
+    const token = req.cookies.token;
+    jwt.verify(token,"Google",{expiresIn:"5d"},(error,decoded)=>{
+       if(error){
+          return resp.send({message:"invalid token",success:false});
+       }
+       console.log("decoded:",decoded);
+       next();
+    })
+}
 
 app.listen(3200);

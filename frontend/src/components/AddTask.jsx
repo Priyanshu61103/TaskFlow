@@ -8,6 +8,7 @@ const AddTask = () => {
   const handleAddTask = async () => {
     console.log(taskData);
     let result = await fetch("http://localhost:3200/add-task",{
+      credentials : "include",
       method : "Post",
       body : JSON.stringify(taskData),
       headers:{

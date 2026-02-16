@@ -25,7 +25,7 @@ const Login = () => {
       console.log(result);
       document.cookie = "token=" + result.token;
       localStorage.setItem("login",userData.email);
-      navigate("/");
+      navigate("/");  
     }
   };
   return (
